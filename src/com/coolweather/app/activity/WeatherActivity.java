@@ -25,7 +25,7 @@ public class WeatherActivity extends Activity {
 	private static final String QUERY_TYPE_WEATHER_CODE = "weather_code";
 	
 	private LinearLayout 	mWeatherLayout;
-	private TextView		mtvTitle;
+	private TextView		mtvCityName;
 	private TextView 		mtvPublishTime;
 	private TextView 		mtvCurDate;
 	private TextView 		mtvWeatherDesp;
@@ -40,7 +40,6 @@ public class WeatherActivity extends Activity {
 		
 		initView();
 		getCountyWeatherInfo();
-		
 	}
 	
 	/**
@@ -58,7 +57,7 @@ public class WeatherActivity extends Activity {
 	private void initView() {
 		
 		this.mWeatherLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
-		this.mtvTitle		= (TextView) findViewById(R.id.tvCityName);
+		this.mtvCityName		= (TextView) findViewById(R.id.tvCityName);
 		this.mtvPublishTime	= (TextView) findViewById(R.id.tvPublish);
 		this.mtvCurDate		= (TextView) findViewById(R.id.tvCurDate);
 		this.mtvWeatherDesp	= (TextView) findViewById(R.id.tvWeatherDesp);
@@ -164,7 +163,7 @@ public class WeatherActivity extends Activity {
 		
 		SharedPreferences sprefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		this.mtvTitle.setText(sprefs.getString("city_name", ""));
+		this.mtvCityName.setText(sprefs.getString("city_name", ""));
 		this.mtvPublishTime.setText("今天" + sprefs.getString("publish_time", "") + "发布");
 		this.mtvCurDate.setText(sprefs.getString("current_date", ""));
 		this.mtvTemp1.setText(sprefs.getString("temp1", ""));

@@ -51,7 +51,7 @@ public class ChooseAreaActivity extends Activity {
 	/**
 	 * ·þÎñÆ÷µØÖ·
 	 */
-	private static final String SERVER_ADDR = "http://www.weather.com.cn/data/list3/";
+//	private static final String SERVER_ADDR = "http://www.weather.com.cn/data/list3/";
 	
 	/********************************************************************************************/
 	
