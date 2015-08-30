@@ -28,7 +28,7 @@ public class CoolWeatherDB {
 	
 	private SQLiteDatabase db;
 	
-	/*
+	/**
 	 * 将构造方法私有化，防止继承
 	 */
 	private CoolWeatherDB(Context ctx) {
@@ -39,7 +39,7 @@ public class CoolWeatherDB {
 		this.db = dbHelper.getWritableDatabase();
 	}
 	
-	/*
+	/**
 	 * 获取CoolWeatherDB的实例
 	 */
 	public synchronized static CoolWeatherDB getInstance(Context ctx){
@@ -51,21 +51,21 @@ public class CoolWeatherDB {
 		return coolWeatherDB;
 	}
 	
-	/*
+	/**
 	 * 将Province数据信息存储到数据库
 	 */
 	public void saveProvince(Province province){
 		if(null != province){
 			ContentValues values = new ContentValues();
 			
-			values.put("prince_name", province.getProvinceName());
+			values.put("province_name", province.getProvinceName());
 			values.put("province_code", province.getProvinceCode());
 			
 			db.insert("Province", null, values);
 		}
 	}
 
-	/*
+	/**
 	 * 从数据库获取全国各省的数据信息
 	 */
 	public List<Province> loadProvinces(){
@@ -87,7 +87,7 @@ public class CoolWeatherDB {
 		return lists;
 	}
 	
-	/*
+	/**
 	 * 将city信息存储到数据
 	 */
 	public void saveCity(City city) {
@@ -100,7 +100,7 @@ public class CoolWeatherDB {
 		}
 	}
 	
-	/*
+	/**
 	 * 从数据库获取某个Province下所有city信息
 	 */
 	public List<City> loadCities(int provinceId){
@@ -131,7 +131,7 @@ public class CoolWeatherDB {
 		return lists;
 	}
 	
-	/*
+	/**
 	 * 将county信息存储到数据库中
 	 */
 	public void saveCounty(County county){
@@ -146,7 +146,7 @@ public class CoolWeatherDB {
 		
 	}
 	
-	/*
+	/**
 	 * 从数据库获取某个city下所有county信息
 	 */
 	public List<County> loadCounties (int cityId){
