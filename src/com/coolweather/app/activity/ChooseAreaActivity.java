@@ -5,7 +5,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -63,7 +66,6 @@ public class ChooseAreaActivity extends Activity {
 	private Level 					mCurLevel; 		// 记录当前的显示等级province/city/county
 	private Province 				mCurProvince; 	// 当前选择的province
 	private City 					mCurCity; 		// 当前选择的city
-	private County 					mCurConty; 		// 当前选择的county
 	private CoolWeatherDB 			mCoolWeatherDB; // 数据库
 	private TextView 				mTVTitle; 		// 显示标题控件
 	private ProgressDialog          mProgressDlg;	// 进度对话框
@@ -74,8 +76,19 @@ public class ChooseAreaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//SharedPreferences 有city被选择了就启动WeatherActivity显示天气信息
+		SharedPreferences sprefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if(sprefs.getBoolean("city_selected", false)){
+			Intent intent = new Intent(this, WeatherActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
+		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
+		
 		initViews();
 		setListView();
 		queryProvinces(); // 加载province级数据
@@ -111,9 +124,16 @@ public class ChooseAreaActivity extends Activity {
 				if (Level.LEVEL_PROVINCE == mCurLevel) {
 					mCurProvince = mProvinceList.get(arg2); //记录当前选择的province
 					queryCities(); // 加载city级数据
-				} else if (Level.LEVEL_CITY == mCurLevel) {
+				} 
+				else if (Level.LEVEL_CITY == mCurLevel) {
 					mCurCity = mCityList.get(arg2); //记录当前选择的city
 					queryCounties(); // 加载county级数据
+				}
+				else if(Level.LEVEL_COUNTY == mCurLevel){
+					//启动WeatherActivity显示天气信息
+					String strCountyCode = mCountyList.get(arg2).getCountyCode();
+					WeatherActivity.start(ChooseAreaActivity.this, strCountyCode);
+					finish();
 				}
 			}
 		});
